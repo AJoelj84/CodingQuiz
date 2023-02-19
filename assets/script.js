@@ -39,7 +39,29 @@ function startQuiz() {
     });
   }
 
+  function resetState() {
+    clearStatusClass(document.body);
+    while (answerButtonsContainer.firstChild) {
+      answerButtonsContainer.removeChild(answerButtonsContainer.firstChild);
+    }
+  }
   
+  function selectAnswer(event) {
+    var selectedButton = event.target;
+    var correct = selectedButton.dataset.correct;
+    setStatusClass(document.body, correct);
+    if (correct) {
+      score++;
+    } else {
+      timeLeft -= 10;
+    }
+    if (currentQuestionIndex < questions.length - 1) {
+      currentQuestionIndex++;
+      setNextQuestion();
+    } else {
+      endQuiz();
+    }
+  }
 
 
 
