@@ -1,8 +1,23 @@
-var answers:;
-var correctAnswer:;
+// Main html page variables
+var startBtn = document.getElementById('start-btn');
+var quizBox = document.getElementById('quiz-box');
+var questionBox = document.getElementById('question-box');
+var answerBtn = document.getElementById('answer-button-box');
+var timerBox = document.getElementById('timer');
 
+// Secondary html page variables?
+var finalScoreBox = document.getElementById("final-score");
+var scoreDisplay = document.getElementById("score");
+var initialsForm = document.getElementById("initials-form");
+var initialsInput = document.getElementById("initials");
 
+// third html page variables?
+var highScoresBox = document.getElementById("high-scores");
+var highScoresTable = document.getElementById("high-scores-table");
+var goBackBtn = document.getElementById("go-back-btn");
+var clearScoresBtn = document.getElementById("clear-scores-btn");
 
+// Questions Array
 var questions = [
     {question:'Commonly used Data types DO NOT include?',
         answers: ['Alerts','Boolean','Numbers','Strings'],
@@ -29,15 +44,17 @@ var questions = [
     answers:['Commas','Curly Brackets','Quotes','Parenthesis'],
     correctAnswer:'Quotes'
     },
-
-
-
-
-
-
 ];
 
+// Defining the state of the quiz variables
+var currentQuestion = 0;
+var timeLeft = 60;
+var score = 0;
+var timerID;
+startButton.addEventListener("click", startQuiz);
 
+
+function askQuestion
 
 
 
