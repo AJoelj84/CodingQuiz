@@ -11,15 +11,15 @@ var initialsForm = document.getElementById('initials-form');
 var initialsInput = document.getElementById('initials');
 var highScores = JSON.parse(localStorage.getItem('highScores')) || [];
 
-var questions = [{question: 'Commonly used data types DO NOT Include:', 
+var questions = [
+    {question: 'Commonly used data types DO NOT Include:', 
      answers: [        
         { text: 'Strings', correct: false },        
         { text: 'Booleans', correct: false },        
         { text: 'Alerts', correct: true },        
         { text: 'Numbers', correct: false }, ]
     },
-    {
-      question: 'The condition in an if/else statement is enclosed with ________.',
+    {question: 'The condition in an if/else statement is enclosed with ________.',
       answers: [
         { text: 'quotes', correct: false },
         { text: 'curly brackets', correct: true },
@@ -27,8 +27,7 @@ var questions = [{question: 'Commonly used data types DO NOT Include:',
         { text: 'square brackets', correct: false },
       ]
     },
-    {
-      question: 'Arrays in JavaScript can be used to store _______.',
+    {question: 'Arrays in JavaScript can be used to store _______.',
       answers:[
         {text: 'numbers and strings', correct: false},
         {text: 'other arrays', correct: false},
@@ -42,15 +41,17 @@ var questions = [{question: 'Commonly used data types DO NOT Include:',
         {text: 'Curly Brackets',correct: false},
         {text: 'Quotes',correct: true},
         {text: 'Parenthesis',correct: false},
-     ]},
+     ]
+    },
      {question:'A very useful tool used during development and debugging for printing content to the debugger is:',
      answers:[
         {text: 'JavaScript',correct:false},
         {text: 'Terminal/Bash',correct:false},
         {text: 'For Loops',correct: false},
         {text: 'Console.log',correct: true},
-     ]},
-  ];
+     ]
+    }];
+
   startButton.addEventListener('click', startQuiz);
   
   function startQuiz() {
@@ -61,12 +62,18 @@ var questions = [{question: 'Commonly used data types DO NOT Include:',
   }
   
   function setNextQuestion() {
+    if (currentQuestionIndex === questions.length) {
+      quizBox.classList.add('hide');
+      finalScoreElement.classList.remove('hide');
+      document.getElementById('score').textContent = score;
+      return;
+    }
     resetState();
     questionBox.innerText = questions[currentQuestionIndex].question;
     showQuestion(questions[currentQuestionIndex]);
     quizBox.appendChild(answerResult);
   }
-  
+
   function showQuestion(question) {
     questionBox.innerText = question.question;
     question.answers.forEach(answer => {
@@ -145,7 +152,29 @@ var questions = [{question: 'Commonly used data types DO NOT Include:',
     }, 1000);
   }
 
-  
+  initialsForm.addEventListener('submit', function(event) {
+    event.preventDefault();
+    var initials = initialsInput.value;
+    var scoreData = {
+      initials: initials,
+      score: score
+    };
+    highScores.push(scoreData);
+    localStorage.setItem('highScores', JSON.stringify(highScores));
+    finalScoreElement.classList.add('hide');
+    document.getElementById('high-scores-table').innerHTML = '';
+    highScores.forEach(function(scoreData) {
+      var row = document.createElement('tr');
+      var initialsCell = document.createElement('td');
+      initialsCell.textContent = scoreData.initials;
+      var scoreCell = document.createElement('td');
+      scoreCell.textContent = scoreData.score;
+      row.appendChild(initialsCell);
+      row.appendChild(scoreCell);
+      document.getElementById('high-scores-table').appendChild(row);
+    });
+    document.getElementById('high-scores').classList.remove('hide');
+  });
 
 
 
