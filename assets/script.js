@@ -47,9 +47,10 @@ function startQuiz() {
 }
 
 function setNextQuestion() {
-  resetState();
-  showQuestion(questions[currentQuestionIndex]);
-}
+    resetState();
+    questionBox.innerText = questions[currentQuestionIndex].question;
+    showQuestion(questions[currentQuestionIndex]);
+  }
 
 function showQuestion(question) {
   questionBox.innerText = question.question;
@@ -79,6 +80,7 @@ function selectAnswer(event) {
     Array.from(answerButtonBox.children).forEach(button => {
       setStatusClass(button, button.dataset.correct);
     });
+    questionBox.innerText = correct ? "Correct!" : "Wrong!";
     if (correct) {
       score++;
     } else {
@@ -91,6 +93,8 @@ function selectAnswer(event) {
       endQuiz();
     }
   }
+  
+  
 
   function setStatusClass(element, correct) {
     clearStatusClass(element);
@@ -107,4 +111,9 @@ function selectAnswer(event) {
   function clearStatusClass(element) {
     element.classList.remove('correct');
     element.classList.remove('wrong');
+  }
+
+  function endQuiz() {
+    clearInterval(timerId);
+    questionBox.innerText = "Quiz ended. Your score is " + score;
   }
