@@ -6,20 +6,26 @@ var currentQuestionIndex = 0;
 var score = 0;
 var timeLeft = 60;
 
-var questions = [{question: 'Commonly used data types DO NOT Include:',answers: [      
-                    { text: 'Strings', correct: false },      
-                    { text: 'Booleans', correct: false },      
-                    { text: 'Alerts', correct: true },      
-                    { text: 'Numbers', correct: false },    ]
-        },];
-
-                [{question: 'The condition in an if/else statement is enclosed with ________.',
-                    answers: [
-                    { text: 'quotes',correct: false},
-                    { text: 'curly brackets', correct: true},
-                    { text: 'parenthesis', correct: false},
-                    { text: 'square brackets', correct: false},   ]
-        },];
+var questions = [
+    {
+      question: 'Commonly used data types DO NOT Include:',
+      answers: [
+        { text: 'Strings', correct: false },
+        { text: 'Booleans', correct: false },
+        { text: 'Alerts', correct: true },
+        { text: 'Numbers', correct: false },
+      ]
+    },
+    {
+      question: 'The condition in an if/else statement is enclosed with ________.',
+      answers: [
+        { text: 'quotes', correct: false },
+        { text: 'curly brackets', correct: true },
+        { text: 'parenthesis', correct: false },
+        { text: 'square brackets', correct: false },
+      ]
+    },
+  ];
 
 
 
@@ -58,36 +64,37 @@ function resetState() {
 }
 
 function selectAnswer(event) {
-  var selectedButton = event.target;
-  var correct = selectedButton.dataset.correct;
-  setStatusClass(document.body, correct);
-  if (correct) {
-    score++;
-  } else {
-    timeLeft -= 10;
+    var selectedButton = event.target;
+    var correct = selectedButton.dataset.correct;
+    setStatusClass(selectedButton, correct);
+    Array.from(answerButtonBox.children).forEach(button => {
+      setStatusClass(button, button.dataset.correct);
+    });
+    if (correct) {
+      score++;
+    } else {
+      timeLeft -= 10;
+    }
+    if (currentQuestionIndex < questions.length - 1) {
+      currentQuestionIndex++;
+      setNextQuestion();
+    } else {
+      endQuiz();
+    }
   }
-  if (currentQuestionIndex < questions.length - 1) {
-    currentQuestionIndex++;
-    setNextQuestion();
-  } else {
-    endQuiz();
+  
+  function setStatusClass(element, correct) {
+    clearStatusClass(element);
+    if (correct) {
+      element.classList.add('correct');
+      questionBox.innerText = "Correct!";
+    } else {
+      element.classList.add('wrong');
+      questionBox.innerText = "Wrong!";
+    }
   }
-}
-
-function setStatusClass(element, correct) {
-  clearStatusClass(element);
-  if (correct) {
-    element.classList.add('correct');
-  } else {
-    element.classList.add('wrong');
+  
+  function clearStatusClass(element) {
+    element.classList.remove('correct');
+    element.classList.remove('wrong');
   }
-}
-
-function clearStatusClass(element) {
-  element.classList.remove('correct');
-  element.classList.remove('wrong');
-}
-
-function endQuiz() {
- 
-}
