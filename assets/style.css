@@ -1,0 +1,9 @@
+button{
+    padding: 10px;
+    margin: 20px;
+    cursor: pointer;
+    font-size: 24px;
+    background-color: purple;
+    color: aliceblue;
+    border-radius: 20px 20px 20px 20px;
+}
