@@ -5,16 +5,14 @@ var quizBox = document.getElementById('quiz-box');
 var currentQuestionIndex = 0;
 var score = 0;
 var timeLeft = 60;
+var answerResult = document.createElement('p');
 
-var questions = [
-    {
-      question: 'Commonly used data types DO NOT Include:',
-      answers: [
-        { text: 'Strings', correct: false },
-        { text: 'Booleans', correct: false },
-        { text: 'Alerts', correct: true },
-        { text: 'Numbers', correct: false },
-      ]
+var questions = [{question: 'Commonly used data types DO NOT Include:', 
+     answers: [        
+        { text: 'Strings', correct: false },        
+        { text: 'Booleans', correct: false },        
+        { text: 'Alerts', correct: true },        
+        { text: 'Numbers', correct: false }, ]
     },
     {
       question: 'The condition in an if/else statement is enclosed with ________.',
@@ -33,10 +31,22 @@ var questions = [
         {text: 'booleans', correct: false},
         {text: 'all of the above',correct: true},
       ] 
-    }
+    },
+    {question:'String values must be enclosed within _____ when being assigned to variables',
+     answers:[
+        {text: 'Commas',correct: false},
+        {text: 'Curly Brackets',correct: false},
+        {text: 'Quotes',correct: true},
+        {text: 'Parenthesis',correct: false},
+     ]},
+     {question:'A very useful tool used during development and debugging for printing content to the debugger is:',
+     answers:[
+        {text: 'JavaScript',correct:false},
+        {text: 'Terminal/Bash',correct:false},
+        {text: 'For Loops',correct: false},
+        {text: 'Console.log',correct: true},
+     ]},
   ];
-
-
 
 startButton.addEventListener('click', startQuiz);
 
@@ -44,13 +54,15 @@ function startQuiz() {
   startButton.classList.add('hide');
   quizBox.classList.remove('hide');
   setNextQuestion();
+  showTimer();
 }
 
 function setNextQuestion() {
-    resetState();
-    questionBox.innerText = questions[currentQuestionIndex].question;
-    showQuestion(questions[currentQuestionIndex]);
-  }
+  resetState();
+  questionBox.innerText = questions[currentQuestionIndex].question;
+  showQuestion(questions[currentQuestionIndex]);
+  quizBox.appendChild(answerResult);
+}
 
 function showQuestion(question) {
   questionBox.innerText = question.question;
@@ -74,46 +86,43 @@ function resetState() {
 }
 
 function selectAnswer(event) {
-    var selectedButton = event.target;
-    var correct = selectedButton.dataset.correct;
-    setStatusClass(selectedButton, correct);
-    Array.from(answerButtonBox.children).forEach(button => {
-      setStatusClass(button, button.dataset.correct);
-    });
-    questionBox.innerText = correct ? "Correct!" : "Wrong!";
-    if (correct) {
-      score++;
-    } else {
-      timeLeft -= 10;
-    }
-    if (currentQuestionIndex < questions.length - 1) {
-      currentQuestionIndex++;
-      setNextQuestion();
-    } else {
-      endQuiz();
-    }
+  var selectedButton = event.target;
+  var correct = selectedButton.dataset.correct;
+  setStatusClass(selectedButton, correct);
+  Array.from(answerButtonBox.children).forEach(button => {
+    setStatusClass(button, button.dataset.correct);
+  });
+  if (correct) {
+    score++;
+    answerResult.innerText = "Correct!";
+  } else {
+    timeLeft -= 10;
+    answerResult.innerText = "Wrong!";
   }
-  
-  
+  if (currentQuestionIndex < questions.length - 1) {
+    currentQuestionIndex++;
+    setNextQuestion();
+  } else {
+    endQuiz();
+  }
+}
 
-  function setStatusClass(element, correct) {
-    clearStatusClass(element);
-    if (correct) {
-      element.classList.add('correct');
-      questionBox.innerText = "Correct!";
-    } else {
-      element.classList.add('wrong');
-      questionBox.innerText = "Wrong!";
-    }
+function setStatusClass(element, correct) {
+  clearStatusClass(element);
+  if (correct) {
+    element.classList.add('correct');
+  } else {
+    element.classList.add('wrong');
   }
-  
+}
 
-  function clearStatusClass(element) {
-    element.classList.remove('correct');
-    element.classList.remove('wrong');
-  }
+function clearStatusClass(element) {
+  element.classList.remove('correct');
+  element.classList.remove('wrong');
+}
 
-  function endQuiz() {
-    clearInterval(timerId);
-    questionBox.innerText = "Quiz ended. Your score is " + score;
-  }
+function endQuiz() {
+  clearInterval(timerId);
+  questionBox.innerText = "Quiz ended. Your score is " + score;
+  quizBox.removeChild(answerResult)
+}
