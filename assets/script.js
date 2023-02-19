@@ -130,47 +130,40 @@ function endQuiz() {
     while (answerButtonBox.firstChild) {
       answerButtonBox.removeChild(answerButtonBox.firstChild);
     }
+  
+    
     var scoreDiv = document.createElement('div');
     var scoreLabel = document.createElement('p');
     scoreLabel.innerText = "Your final score is: " + score;
-    var initialForm = document.createElement('form');
-    initialForm.innerHTML = `
-      <label for="initials">Enter your initials:</label>
-      <input type="text" id="initials" name="initials"><br><br>
-      <input type="submit" value="Submit">
-    `;
-    initialForm.addEventListener('submit', function(event) {
-      event.preventDefault();
-      saveHighScore(event.target.elements.initials.value, score);
-      showHighScores();
-    });
     scoreDiv.appendChild(scoreLabel);
-    scoreDiv.appendChild(initialForm);
     quizBox.appendChild(scoreDiv);
-  }
   
-  function showHighScores() {
-    while (answerButtonBox.firstChild) {
-      answerButtonBox.removeChild(answerButtonBox.firstChild);
-    }
-    quizBox.removeChild(answerResult);
-    var highScores = JSON.parse(localStorage.getItem('highScores')) || [];
-    var highScoresList = document.createElement('ol');
-    highScoresList.classList.add('high-scores');
-    highScores.forEach(function(highScore) {
-      var highScoreItem = document.createElement('li');
-      highScoreItem.innerText = highScore.initials + ' - ' + highScore.score;
-      highScoresList.appendChild(highScoreItem);
+   
+    var initialsForm = document.createElement('form');
+    var initialsLabel = document.createElement('label');
+    initialsLabel.innerText = "Enter your initials:";
+    var initialsInput = document.createElement('input');
+    initialsInput.setAttribute('type', 'text');
+    initialsInput.setAttribute('id', 'initials');
+    initialsInput.setAttribute('name', 'initials');
+    var submitButton = document.createElement('button');
+    submitButton.innerText = "Submit";
+    initialsForm.appendChild(initialsLabel);
+    initialsForm.appendChild(initialsInput);
+    initialsForm.appendChild(submitButton);
+    quizBox.appendChild(initialsForm);
+  
+    
+    initialsForm.addEventListener('submit', function(event) {
+      event.preventDefault();
+      var initials = initialsInput.value.trim();
+      if (initials !== "") {
+        var highScore = { initials: initials, score: score };
+        highScores.push(highScore);
+        localStorage.setItem('highScores', JSON.stringify(highScores));
+        initialsForm.reset();
+        quizBox.classList.add('hide');
+        showHighScores();
+      }
     });
-    quizBox.appendChild(highScoresList);
   }
-  
-  function saveHighScore(initials, score) {
-    var highScores = JSON.parse(localStorage.getItem('highScores')) || [];
-    highScores.push({ initials: initials, score: score });
-    highScores.sort(function(a, b) {
-      return b.score - a.score;
-    });
-    localStorage.setItem('highScores', JSON.stringify(highScores));
-  }
-  
