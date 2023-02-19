@@ -7,13 +7,21 @@ var score = 0;
 var timeLeft = 60;
 
 var questions = [{question: 'Commonly used data types DO NOT Include:',answers: [      
-    { text: 'Strings', correct: false },      
-    { text: 'Booleans', correct: false },      
-    { text: 'Alerts', correct: true },      
-    { text: 'Numbers', correct: false },    ]
-  },
-  // Add more questions here
-];
+                    { text: 'Strings', correct: false },      
+                    { text: 'Booleans', correct: false },      
+                    { text: 'Alerts', correct: true },      
+                    { text: 'Numbers', correct: false },    ]
+        },];
+
+                [{question: 'The condition in an if/else statement is enclosed with ________.',
+                    answers: [
+                    { text: 'quotes',correct: false},
+                    { text: 'curly brackets', correct: true},
+                    { text: 'parenthesis', correct: false},
+                    { text: 'square brackets', correct: false},   ]
+        },];
+
+
 
 startButton.addEventListener('click', startQuiz);
 
@@ -81,5 +89,5 @@ function clearStatusClass(element) {
 }
 
 function endQuiz() {
-  // Display the user's score and other results as needed
+ 
 }
