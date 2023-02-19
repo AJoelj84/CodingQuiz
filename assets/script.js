@@ -25,6 +25,15 @@ var questions = [
         { text: 'square brackets', correct: false },
       ]
     },
+    {
+      question: 'Arrays in JavaScript can be used to store _______.',
+      answers:[
+        {text: 'numbers and strings', correct: false},
+        {text: 'other arrays', correct: false},
+        {text: 'booleans', correct: false},
+        {text: 'all of the above',correct: true},
+      ] 
+    }
   ];
 
 
@@ -82,7 +91,7 @@ function selectAnswer(event) {
       endQuiz();
     }
   }
-  
+
   function setStatusClass(element, correct) {
     clearStatusClass(element);
     if (correct) {
@@ -94,6 +103,7 @@ function selectAnswer(event) {
     }
   }
   
+
   function clearStatusClass(element) {
     element.classList.remove('correct');
     element.classList.remove('wrong');
