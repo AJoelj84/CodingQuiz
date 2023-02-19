@@ -6,6 +6,10 @@ var currentQuestionIndex = 0;
 var score = 0;
 var timeLeft = 60;
 var answerResult = document.createElement('p');
+var finalScoreElement = document.getElementById('final-score');
+var initialsForm = document.getElementById('initials-form');
+var initialsInput = document.getElementById('initials');
+var highScores = JSON.parse(localStorage.getItem('highScores')) || [];
 
 var questions = [{question: 'Commonly used data types DO NOT Include:', 
      answers: [        
@@ -137,20 +141,36 @@ function endQuiz() {
     `;
     initialForm.addEventListener('submit', function(event) {
       event.preventDefault();
-      var initials = document.getElementById('initials').value;
-      saveScore(initials, score);
+      saveHighScore(event.target.elements.initials.value, score);
+      showHighScores();
     });
     scoreDiv.appendChild(scoreLabel);
     scoreDiv.appendChild(initialForm);
     quizBox.appendChild(scoreDiv);
   }
   
-  function saveScore(initials, score) {
-    var highScores = JSON.parse(localStorage.getItem("highScores")) || [];
-    highScores.push({initials: initials, score: score});
-    highScores.sort(function(a, b){return b.score - a.score});
-    highScores.splice(5);
-    localStorage.setItem("highScores", JSON.stringify(highScores));
-    window.location.href = "highscores.html";
+  function showHighScores() {
+    while (answerButtonBox.firstChild) {
+      answerButtonBox.removeChild(answerButtonBox.firstChild);
+    }
+    quizBox.removeChild(answerResult);
+    var highScores = JSON.parse(localStorage.getItem('highScores')) || [];
+    var highScoresList = document.createElement('ol');
+    highScoresList.classList.add('high-scores');
+    highScores.forEach(function(highScore) {
+      var highScoreItem = document.createElement('li');
+      highScoreItem.innerText = highScore.initials + ' - ' + highScore.score;
+      highScoresList.appendChild(highScoreItem);
+    });
+    quizBox.appendChild(highScoresList);
+  }
+  
+  function saveHighScore(initials, score) {
+    var highScores = JSON.parse(localStorage.getItem('highScores')) || [];
+    highScores.push({ initials: initials, score: score });
+    highScores.sort(function(a, b) {
+      return b.score - a.score;
+    });
+    localStorage.setItem('highScores', JSON.stringify(highScores));
   }
   

@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
       <link rel="stylesheet" href="assets/style.css">
   </head> 
-  
+
   <body>
         <h1> Coding Quiz Challenge</h1>
         <p> Answer the Five code-related questions within the time limit.<br>
@@ -22,6 +22,17 @@
             </div>
 
     
+            <div id="score-box" class="hide">
+                <h2>All done!</h2>
+                <p>Your final score is: <span id="final-score"></span></p>
+                <form id="initials-form">
+                  <label for="initials">Enter your initials:</label>
+                  <input type="text" id="initials" name="initials" required>
+                  <button type="submit">Submit</button>
+                </form>
+              </div>
+
+              
     <script src="assets/script.js"></script>
   </body>
 </html>
