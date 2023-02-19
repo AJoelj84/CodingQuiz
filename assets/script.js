@@ -51,119 +51,109 @@ var questions = [{question: 'Commonly used data types DO NOT Include:',
         {text: 'Console.log',correct: true},
      ]},
   ];
-
-startButton.addEventListener('click', startQuiz);
-
-function startQuiz() {
-  startButton.classList.add('hide');
-  quizBox.classList.remove('hide');
-  setNextQuestion();
-  showTimer();
-}
-
-function setNextQuestion() {
-  resetState();
-  questionBox.innerText = questions[currentQuestionIndex].question;
-  showQuestion(questions[currentQuestionIndex]);
-  quizBox.appendChild(answerResult);
-}
-
-function showQuestion(question) {
-  questionBox.innerText = question.question;
-  question.answers.forEach(answer => {
-    var button = document.createElement('button');
-    button.innerText = answer.text;
-    button.classList.add('answer-btn');
-    if (answer.correct) {
-      button.dataset.correct = answer.correct;
-    }
-    button.addEventListener('click', selectAnswer);
-    answerButtonBox.appendChild(button);
-  });
-}
-
-function resetState() {
-  clearStatusClass(document.body);
-  while (answerButtonBox.firstChild) {
-    answerButtonBox.removeChild(answerButtonBox.firstChild);
-  }
-}
-
-function selectAnswer(event) {
-  var selectedButton = event.target;
-  var correct = selectedButton.dataset.correct;
-  setStatusClass(selectedButton, correct);
-  Array.from(answerButtonBox.children).forEach(button => {
-    setStatusClass(button, button.dataset.correct);
-  });
-  if (correct) {
-    score++;
-    answerResult.innerText = "Correct!";
-  } else {
-    timeLeft -= 10;
-    answerResult.innerText = "Wrong!";
-  }
-  if (currentQuestionIndex < questions.length - 1) {
-    currentQuestionIndex++;
+  startButton.addEventListener('click', startQuiz);
+  
+  function startQuiz() {
+    startButton.classList.add('hide');
+    quizBox.classList.remove('hide');
     setNextQuestion();
-  } else {
-    endQuiz();
+    showTimer();
   }
-}
-
-function setStatusClass(element, correct) {
-  clearStatusClass(element);
-  if (correct) {
-    element.classList.add('correct');
-  } else {
-    element.classList.add('wrong');
+  
+  function setNextQuestion() {
+    resetState();
+    questionBox.innerText = questions[currentQuestionIndex].question;
+    showQuestion(questions[currentQuestionIndex]);
+    quizBox.appendChild(answerResult);
   }
-}
-
-function clearStatusClass(element) {
-  element.classList.remove('correct');
-  element.classList.remove('wrong');
-}
-
-function endQuiz() {
-    clearInterval(timerId);
+  
+  function showQuestion(question) {
+    questionBox.innerText = question.question;
+    question.answers.forEach(answer => {
+      var button = document.createElement('button');
+      button.innerText = answer.text;
+      button.classList.add('answer-btn');
+      if (answer.correct) {
+        button.dataset.correct = answer.correct;
+      }
+      button.addEventListener('click', selectAnswer);
+      answerButtonBox.appendChild(button);
+    });
+  }
+  
+  function resetState() {
+    clearStatusClass(document.body);
     while (answerButtonBox.firstChild) {
       answerButtonBox.removeChild(answerButtonBox.firstChild);
     }
-  
-    
-    var scoreDiv = document.createElement('div');
-    var scoreLabel = document.createElement('p');
-    scoreLabel.innerText = "Your final score is: " + score;
-    scoreDiv.appendChild(scoreLabel);
-    quizBox.appendChild(scoreDiv);
-  
-   
-    var initialsForm = document.createElement('form');
-    var initialsLabel = document.createElement('label');
-    initialsLabel.innerText = "Enter your initials:";
-    var initialsInput = document.createElement('input');
-    initialsInput.setAttribute('type', 'text');
-    initialsInput.setAttribute('id', 'initials');
-    initialsInput.setAttribute('name', 'initials');
-    var submitButton = document.createElement('button');
-    submitButton.innerText = "Submit";
-    initialsForm.appendChild(initialsLabel);
-    initialsForm.appendChild(initialsInput);
-    initialsForm.appendChild(submitButton);
-    quizBox.appendChild(initialsForm);
-  
-    
-    initialsForm.addEventListener('submit', function(event) {
-      event.preventDefault();
-      var initials = initialsInput.value.trim();
-      if (initials !== "") {
-        var highScore = { initials: initials, score: score };
-        highScores.push(highScore);
-        localStorage.setItem('highScores', JSON.stringify(highScores));
-        initialsForm.reset();
-        quizBox.classList.add('hide');
-        showHighScores();
-      }
-    });
   }
+  
+  function selectAnswer(event) {
+    var selectedButton = event.target;
+    var correct = selectedButton.dataset.correct;
+    setStatusClass(selectedButton, correct);
+    Array.from(answerButtonBox.children).forEach(button => {
+      setStatusClass(button, button.dataset.correct);
+    });
+    if (correct) {
+      score++;
+      answerResult.innerText = "Correct!";
+    } else {
+      timeLeft -= 10;
+      answerResult.innerText = "Incorrect!";
+    }
+    if (currentQuestionIndex < questions.length - 1) {
+      currentQuestionIndex++;
+      setNextQuestion();
+    } else {
+      clearInterval(timerInterval);
+      finalScoreElement.classList.remove('hide');
+      document.getElementById('score').innerText = score;
+    }
+    if (currentQuestionIndex < questions.length - 1) {
+            currentQuestionIndex++;
+            setNextQuestion();
+          } else {
+            endQuiz();
+          }
+  }
+  
+  function setStatusClass(element, correct) {
+    clearStatusClass(element);
+    if (correct) {
+      element.classList.add('correct');
+    } else {
+      element.classList.add('incorrect');
+    }
+  }
+  
+  function clearStatusClass(element) {
+    element.classList.remove('correct');
+    element.classList.remove('incorrect');
+  }
+  
+  function showTimer() {
+    var timerElement = document.getElementById('timer');
+    var timerInterval = setInterval(function() {
+      timeLeft--;
+      timerElement.textContent = timeLeft;
+      if (timeLeft === 0) {
+        clearInterval(timerInterval);
+        finalScoreElement.classList.remove('hide');
+        document.getElementById('score').innerText = score;
+      }
+    }, 1000);
+  }
+
+  
+
+
+
+
+
+
+
+
+
+
+
