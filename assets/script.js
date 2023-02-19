@@ -122,7 +122,35 @@ function clearStatusClass(element) {
 }
 
 function endQuiz() {
-  clearInterval(timerId);
-  questionBox.innerText = "Quiz ended. Your score is " + score;
-  quizBox.removeChild(answerResult)
-}
+    clearInterval(timerId);
+    while (answerButtonBox.firstChild) {
+      answerButtonBox.removeChild(answerButtonBox.firstChild);
+    }
+    var scoreDiv = document.createElement('div');
+    var scoreLabel = document.createElement('p');
+    scoreLabel.innerText = "Your final score is: " + score;
+    var initialForm = document.createElement('form');
+    initialForm.innerHTML = `
+      <label for="initials">Enter your initials:</label>
+      <input type="text" id="initials" name="initials"><br><br>
+      <input type="submit" value="Submit">
+    `;
+    initialForm.addEventListener('submit', function(event) {
+      event.preventDefault();
+      var initials = document.getElementById('initials').value;
+      saveScore(initials, score);
+    });
+    scoreDiv.appendChild(scoreLabel);
+    scoreDiv.appendChild(initialForm);
+    quizBox.appendChild(scoreDiv);
+  }
+  
+  function saveScore(initials, score) {
+    var highScores = JSON.parse(localStorage.getItem("highScores")) || [];
+    highScores.push({initials: initials, score: score});
+    highScores.sort(function(a, b){return b.score - a.score});
+    highScores.splice(5);
+    localStorage.setItem("highScores", JSON.stringify(highScores));
+    window.location.href = "highscores.html";
+  }
+  
