@@ -2,67 +2,84 @@ var startButton = document.getElementById('start-btn');
 var questionBox = document.getElementById('question-box');
 var answerButtonBox = document.getElementById('answer-button-box');
 var quizBox = document.getElementById('quiz-box');
-var currentQuestion = 0;
+var currentQuestionIndex = 0;
 var score = 0;
 var timeLeft = 60;
 
-var questions = [ { question: 'Commonly used data types do not include?',  
-                    answer: [strings, boolean, numbers, alerts]},
-                ];
+var questions = [{question: 'Commonly used data types DO NOT Include:',answers: [      
+    { text: 'Strings', correct: false },      
+    { text: 'Booleans', correct: false },      
+    { text: 'Alerts', correct: true },      
+    { text: 'Numbers', correct: false },    ]
+  },
+  // Add more questions here
+];
 
-
-
-startButton.addEventListener('click', startQuiz);  
+startButton.addEventListener('click', startQuiz);
 
 function startQuiz() {
-    startButton.classList.add('hide');
-    quizContainer.classList.remove('hide');
+  startButton.classList.add('hide');
+  quizBox.classList.remove('hide');
+  setNextQuestion();
+}
+
+function setNextQuestion() {
+  resetState();
+  showQuestion(questions[currentQuestionIndex]);
+}
+
+function showQuestion(question) {
+  questionBox.innerText = question.question;
+  question.answers.forEach(answer => {
+    var button = document.createElement('button');
+    button.innerText = answer.text;
+    button.classList.add('answer-btn');
+    if (answer.correct) {
+      button.dataset.correct = answer.correct;
+    }
+    button.addEventListener('click', selectAnswer);
+    answerButtonBox.appendChild(button);
+  });
+}
+
+function resetState() {
+  clearStatusClass(document.body);
+  while (answerButtonBox.firstChild) {
+    answerButtonBox.removeChild(answerButtonBox.firstChild);
+  }
+}
+
+function selectAnswer(event) {
+  var selectedButton = event.target;
+  var correct = selectedButton.dataset.correct;
+  setStatusClass(document.body, correct);
+  if (correct) {
+    score++;
+  } else {
+    timeLeft -= 10;
+  }
+  if (currentQuestionIndex < questions.length - 1) {
+    currentQuestionIndex++;
     setNextQuestion();
+  } else {
+    endQuiz();
   }
-  
-  function setNextQuestion() {
-    resetState();
-    showQuestion(questions[currentQuestionIndex]);
+}
+
+function setStatusClass(element, correct) {
+  clearStatusClass(element);
+  if (correct) {
+    element.classList.add('correct');
+  } else {
+    element.classList.add('wrong');
   }
+}
 
-  function showQuestion(question) {
-    questionContainer.innerText = question.question;
-    question.answers.forEach(answer => {
-      var button = document.createElement('button');
-      button.innerText = answer.text;
-      button.classList.add('answer-btn');
-      if (answer.correct) {
-        button.dataset.correct = answer.correct;
-      }
-      button.addEventListener('click', selectAnswer);
-      answerButtonsContainer.appendChild(button);
-    });
-  }
+function clearStatusClass(element) {
+  element.classList.remove('correct');
+  element.classList.remove('wrong');
+}
 
-  function resetState() {
-    clearStatusClass(document.body);
-    while (answerButtonsContainer.firstChild) {
-      answerButtonsContainer.removeChild(answerButtonsContainer.firstChild);
-    }
-  }
-  
-  function selectAnswer(event) {
-    var selectedButton = event.target;
-    var correct = selectedButton.dataset.correct;
-    setStatusClass(document.body, correct);
-    if (correct) {
-      score++;
-    } else {
-      timeLeft -= 10;
-    }
-    if (currentQuestionIndex < questions.length - 1) {
-      currentQuestionIndex++;
-      setNextQuestion();
-    } else {
-      endQuiz();
-    }
-  }
-
-
-
-
+function endQuiz() {
+  // Display the user's score and other results as needed
+}
