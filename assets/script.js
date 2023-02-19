@@ -54,7 +54,6 @@ var timerID;
 startButton.addEventListener("click", startQuiz);
 
 
-function askQuestion
 
 
 
