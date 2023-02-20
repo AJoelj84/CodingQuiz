@@ -53,8 +53,67 @@ var score = 0;
 var timerID;
 startButton.addEventListener("click", startQuiz);
 
+// Define the startQuiz function
+function startQuiz() {
+  startBtn.classList.add("hide");
+  timerBox.textContent = timeLeft;
+  quizBox.classList.remove("hide");
+  timerId = setInterval(updateTimer, 1000);
+  askQuestion();
+}
 
-
+// Define the askQuestion function
+function askQuestion() {
+  if (currentQuestion >= quizData.length) {
+    endQuiz();
+    return;
+  }
+  var question = quizData[currentQuestion];
+  questionBox.textContent = question.question;
+  answerButtonBox.innerHTML = "";
+  for (let answer of question.answers) {
+    var button = document.createElement("button");
+    button.textContent = answer;
+    button.addEventListener("click", function() {
+      handleAnswer(answer, question.correctAnswer);
+    });
+    answerButtonBox.appendChild(button);
+  }
+}
+// Function to handle an answer
+function handleAnswer(answer, correctAnswer) {
+    if (answer === correctAnswer) {
+      score += 20;
+      showAlert("Correct!");
+    } else {
+      timeLeft -= 10;
+      if (timeLeft < 0) {
+        timeLeft = 0;
+      }
+      showAlert("Incorrect!");
+    }
+    currentQuestion++;
+    askQuestion();
+  }
+  
+  // Function to show a message to the user
+  function showAlert(message) {
+    const alertBox = document.createElement("div");
+    alertBox.textContent = message;
+    answerButtonBox.appendChild(alertBox);
+    setTimeout(function() {
+      alertBox.remove();
+    }, 1000);
+  }
+ 
+// Function to update the timer
+function updateTimer() {
+    timeLeft--;
+    if (timeLeft < 0) {
+      timeLeft = 0;
+      endQuiz();
+    }}
+    timerBox.textContent = timeLeft;
 
 
 
