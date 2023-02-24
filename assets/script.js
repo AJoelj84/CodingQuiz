@@ -131,7 +131,7 @@ var questions = [
       finalScoreElement.classList.remove('hide');
       quizBox.classList.add('hide');
       document.getElementById('score').innerText = score;
-      endQuiz();
+      // endQuiz();
     }
   }
   
@@ -174,36 +174,6 @@ function handleFormSubmit(event) {
     updateHighScoresTable();
   }
 }
-function updateHighScoresTable() {
-  highScoresTableBody.innerHTML = '';
-  for (var i = 0; i < scores.length; i++) {
-    var score = scores[i];
-    var row = document.createElement('tr');
-    var initialsCell = document.createElement('td');
-    var scoreCell = document.createElement('td');
-    initialsCell.textContent = score.initials;
-    scoreCell.textContent = score.score;
-    row.appendChild(initialsCell);
-    row.appendChild(scoreCell);
-    highScoresTableBody.appendChild(row);
-  }
-}
-var clearScoresButton = document.getElementById('clear-scores-btn');
-clearScoresButton.addEventListener('click', function() {
-  scores = [];
-  localStorage.removeItem('scores');
-  updateHighScoresTable();
-});
-
-scores.forEach(function(score) {
-  var row = highScoresTableBody.insertRow();
-  var initialsCell = row.insertCell();
-  var scoreCell = row.insertCell();
-  var dateCell = row.insertCell();
-  initialsCell.appendChild(document.createTextNode(score.initials));
-  scoreCell.appendChild(document.createTextNode(score.score));
-  dateCell.appendChild(document.createTextNode(score.date));
-});
 
 backBtn.addEventListener('click',function(){
   location.reload();
