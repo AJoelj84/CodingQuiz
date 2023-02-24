@@ -1,5 +1,6 @@
 var startButton = document.getElementById('start-btn');
 var questionBox = document.getElementById('question-box');
+var pageStart = document.getElementById('page');
 var answerButtonBox = document.getElementById('answer-button-box');
 var quizBox = document.getElementById('quiz-box');
 var finalScoreElement = document.getElementById('final-score');
@@ -55,6 +56,7 @@ var questions = [
   
   function startQuiz() {
     startButton.classList.add('hide');
+    pageStart.classList.add('hide');
     quizBox.classList.remove('hide');
     currentQuestionIndex = 0;
     score = 0;
@@ -118,6 +120,7 @@ var questions = [
     } else {
       clearInterval(timerInterval);
       finalScoreElement.classList.remove('hide');
+      quizBox.classList.add('hide');
       document.getElementById('score').innerText = score;
       endQuiz();
     }
