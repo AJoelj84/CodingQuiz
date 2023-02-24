@@ -65,8 +65,8 @@ var questions = [
   
   function setNextQuestion() {
     if (currentQuestionIndex === questions.length) {
-      clearInterval(timerInterval); // clear the timer
-      quizBox.style.display = 'none'; // hide the quiz-box section
+      clearInterval(timerInterval);
+      quizBox.classList.add('hide');
       finalScoreElement.classList.remove('hide');
       document.getElementById('score').textContent = score;
       return;
