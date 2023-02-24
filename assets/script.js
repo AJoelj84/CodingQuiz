@@ -5,10 +5,13 @@ var answerButtonBox = document.getElementById('answer-button-box');
 var quizBox = document.getElementById('quiz-box');
 var finalScoreElement = document.getElementById('final-score');
 // Working Section to integrate High Scores
+var backBtn = document.getElementById('goback');
+var highScores = document.getElementById('high-scores');
 var highScoresTable = document.getElementById('high-scores-table');
 var highScoresTableBody = highScoresTable.getElementsByTagName('tbody')[0];
 var scores = JSON.parse(localStorage.getItem('scores')) || [];
-
+var initialsForm = document.getElementById('initials-form');
+initialsForm.addEventListener('submit', handleFormSubmit);
 // Below is previously working code
 var currentQuestionIndex = 0;
 var score = 0;
@@ -157,6 +160,40 @@ var questions = [
   }, 1000);
 }
 // High Scores Section Below
+function handleFormSubmit(event) {
+  finalScoreElement.classList.add('hide');
+  highScores.classList.remove('hide');
+
+  event.preventDefault();
+  var initialsInput = document.getElementById('initials');
+  var initials = initialsInput.value.trim();
+  if (initials !== '') {
+    var newScore = { initials: initials, score: score };
+    scores.push(newScore);
+    localStorage.setItem('scores', JSON.stringify(scores));
+    updateHighScoresTable();
+  }
+}
+function updateHighScoresTable() {
+  highScoresTableBody.innerHTML = '';
+  for (var i = 0; i < scores.length; i++) {
+    var score = scores[i];
+    var row = document.createElement('tr');
+    var initialsCell = document.createElement('td');
+    var scoreCell = document.createElement('td');
+    initialsCell.textContent = score.initials;
+    scoreCell.textContent = score.score;
+    row.appendChild(initialsCell);
+    row.appendChild(scoreCell);
+    highScoresTableBody.appendChild(row);
+  }
+}
+var clearScoresButton = document.getElementById('clear-scores-btn');
+clearScoresButton.addEventListener('click', function() {
+  scores = [];
+  localStorage.removeItem('scores');
+  updateHighScoresTable();
+});
 
 scores.forEach(function(score) {
   var row = highScoresTableBody.insertRow();
@@ -166,4 +203,8 @@ scores.forEach(function(score) {
   initialsCell.appendChild(document.createTextNode(score.initials));
   scoreCell.appendChild(document.createTextNode(score.score));
   dateCell.appendChild(document.createTextNode(score.date));
+});
+
+backBtn.addEventListener('click',function(){
+  location.reload();
 });
