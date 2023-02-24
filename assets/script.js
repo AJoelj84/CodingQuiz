@@ -2,11 +2,12 @@ var startButton = document.getElementById('start-btn');
 var questionBox = document.getElementById('question-box');
 var answerButtonBox = document.getElementById('answer-button-box');
 var quizBox = document.getElementById('quiz-box');
+var finalScoreElement = document.getElementById('final-score');
 var currentQuestionIndex = 0;
 var score = 0;
 var timeLeft = 60;
 var answerResult = document.createElement('p');
-var finalScoreElement = document.getElementById('final-score');
+var timerInterval;
 
 
 var questions = [
@@ -55,6 +56,9 @@ var questions = [
   function startQuiz() {
     startButton.classList.add('hide');
     quizBox.classList.remove('hide');
+    currentQuestionIndex = 0;
+    score = 0;
+    timeLeft = 60;
     setNextQuestion();
     showTimer();
   }
@@ -101,7 +105,7 @@ var questions = [
       setStatusClass(button, button.dataset.correct);
     });
     if (correct) {
-      score++;
+      score+=20;
       answerResult.innerText = "Correct!";
     } else {
       timeLeft -= 10;
@@ -142,10 +146,5 @@ var questions = [
         endQuiz();
       }
     }, 1000);
-  }
-
-  function endQuiz(){
-    window.location.href = "Score.html";
-
   }
 
