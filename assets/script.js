@@ -4,6 +4,12 @@ var pageStart = document.getElementById('page');
 var answerButtonBox = document.getElementById('answer-button-box');
 var quizBox = document.getElementById('quiz-box');
 var finalScoreElement = document.getElementById('final-score');
+// Working Section to integrate High Scores
+var highScoresTable = document.getElementById('high-scores-table');
+var highScoresTableBody = highScoresTable.getElementsByTagName('tbody')[0];
+var scores = JSON.parse(localStorage.getItem('scores')) || [];
+
+// Below is previously working code
 var currentQuestionIndex = 0;
 var score = 0;
 var timeLeft = 60;
@@ -150,3 +156,14 @@ var questions = [
     }
   }, 1000);
 }
+// High Scores Section Below
+
+scores.forEach(function(score) {
+  var row = highScoresTableBody.insertRow();
+  var initialsCell = row.insertCell();
+  var scoreCell = row.insertCell();
+  var dateCell = row.insertCell();
+  initialsCell.appendChild(document.createTextNode(score.initials));
+  scoreCell.appendChild(document.createTextNode(score.score));
+  dateCell.appendChild(document.createTextNode(score.date));
+});
