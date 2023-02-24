@@ -65,7 +65,8 @@ var questions = [
   
   function setNextQuestion() {
     if (currentQuestionIndex === questions.length) {
-      quizBox.classList.add('hide');
+      clearInterval(timerInterval); // clear the timer
+      quizBox.style.display = 'none'; // hide the quiz-box section
       finalScoreElement.classList.remove('hide');
       document.getElementById('score').textContent = score;
       return;
@@ -137,14 +138,12 @@ var questions = [
   }
   
   function showTimer() {
-    var timerElement = document.getElementById('timer');
-    var timerInterval = setInterval(function() {
-      timeLeft--;
-      timerElement.textContent = timeLeft;
-      if (timeLeft === 0) {
-        clearInterval(timerInterval);
-        endQuiz();
-      }
-    }, 1000);
-  }
-
+  timerInterval = setInterval(function() {
+    timeLeft--;
+    document.getElementById('timer').textContent = 'Time left: ' + timeLeft;
+    if (timeLeft <= 0) {
+      clearInterval(timerInterval);
+      setNextQuestion();
+    }
+  }, 1000);
+}
