@@ -131,7 +131,6 @@ var questions = [
       finalScoreElement.classList.remove('hide');
       quizBox.classList.add('hide');
       document.getElementById('score').innerText = score;
-      // endQuiz();
     }
   }
   

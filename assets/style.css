@@ -6,6 +6,7 @@ button{
     background-color: purple;
     color: aliceblue;
     border-radius: 20px;
+    
 }
 
 .hide{
@@ -13,10 +14,14 @@ button{
 }
 
 .titleandquestions{
-    font-size: 48px;
+    font-size: 36px;
     text-align: center;
 }
 .titleinfo{
     font-size: 28px;
     text-align: center;
+}
+.timer{
+    text-align: right;
+    font-size: 28px;
 }
