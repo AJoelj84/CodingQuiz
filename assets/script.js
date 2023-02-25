@@ -168,13 +168,28 @@ function handleFormSubmit(event) {
   var initialsInput = document.getElementById('initials');
   var initials = initialsInput.value.trim();
   if (initials !== '') {
-    var newScore = { initials: initials, score: score };
+    var newScore = {initials: initials, score: score };
     scores.push(newScore);
     localStorage.setItem('scores', JSON.stringify(scores));
-    updateHighScoresTable();
   }
 }
 
 backBtn.addEventListener('click',function(){
   location.reload();
 });
+
+
+var savedScores = JSON.parse(localStorage.getItem('scores'));
+var output = document.getElementById('output');
+
+var initialsAndScores = "";
+
+for (var i = 0; i < savedScores.length; i++) {
+  var initials = savedScores[i].initials;
+  var score = savedScores[i].score;
+  initialsAndScores += initials + " - " + score + " ";
+}
+
+output.innerHTML = initialsAndScores;
+
+console.log(initialsAndScores);
