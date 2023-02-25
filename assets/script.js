@@ -23,41 +23,41 @@ var timerInterval;
 var questions = [
     {question: 'Commonly used data types DO NOT Include:', 
      answers: [        
-        { text: 'Strings', correct: false },        
-        { text: 'Booleans', correct: false },        
-        { text: 'Alerts', correct: true },        
-        { text: 'Numbers', correct: false }, ]
+        { text: '1. Strings', correct: false },        
+        { text: '2. Booleans', correct: false },        
+        { text: '3. Alerts', correct: true },        
+        { text: '4. Numbers', correct: false }, ]
     },
     {question: 'The condition in an if/else statement is enclosed with ________.',
       answers: [
-        { text: 'quotes', correct: false },
-        { text: 'curly brackets', correct: true },
-        { text: 'parenthesis', correct: false },
-        { text: 'square brackets', correct: false },
+        { text: '1. Quotes', correct: false },
+        { text: '2. Curly brackets', correct: true },
+        { text: '3. Parenthesis', correct: false },
+        { text: '4. Square brackets', correct: false },
       ]
     },
     {question: 'Arrays in JavaScript can be used to store _______.',
       answers:[
-        {text: 'numbers and strings', correct: false},
-        {text: 'other arrays', correct: false},
-        {text: 'booleans', correct: false},
-        {text: 'all of the above',correct: true},
+        {text: '1. Numbers and Strings', correct: false},
+        {text: '2. Other Arrays', correct: false},
+        {text: '3. Booleans', correct: false},
+        {text: '4. All of the above',correct: true},
       ] 
     },
     {question:'String values must be enclosed within _____ when being assigned to variables',
      answers:[
-        {text: 'Commas',correct: false},
-        {text: 'Curly Brackets',correct: false},
-        {text: 'Quotes',correct: true},
-        {text: 'Parenthesis',correct: false},
+        {text: '1. Commas',correct: false},
+        {text: '2. Curly Brackets',correct: false},
+        {text: '3. Quotes',correct: true},
+        {text: '4. Parenthesis',correct: false},
      ]
     },
      {question:'A very useful tool used during development and debugging for printing content to the debugger is:',
      answers:[
-        {text: 'JavaScript',correct:false},
-        {text: 'Terminal/Bash',correct:false},
-        {text: 'For Loops',correct: false},
-        {text: 'Console.log',correct: true},
+        {text: '1. JavaScript',correct:false},
+        {text: '2. Terminal/Bash',correct:false},
+        {text: '3. For Loops',correct: false},
+        {text: '4. Console.log',correct: true},
      ]
     }];
 
