@@ -193,3 +193,10 @@ for (var i = 0; i < savedScores.length; i++) {
 output.innerHTML = initialsAndScores;
 
 console.log(initialsAndScores);
+
+
+var clearScoresButton = document.getElementById("clear-scores-btn");
+
+clearScoresButton.addEventListener("click", function () {
+  localStorage.clear();
+});
