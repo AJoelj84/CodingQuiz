@@ -11,3 +11,12 @@ button{
 .hide{
     display: none;
 }
+
+.titleandquestions{
+    font-size: 48px;
+    text-align: center;
+}
+.titleinfo{
+    font-size: 28px;
+    text-align: center;
+}
