@@ -6,6 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="assets/style.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Babylonica&family=Prompt&display=swap" rel="stylesheet">
   </head> 
 <!-- Starting Page with Title and Description -->
   <body class="titleandquestions">
@@ -21,7 +24,7 @@
             <div id="quiz-box" class="hide">
                 <h2 id = 'timer' class="timer"></h2>  
                 <div id = 'question-box'></div>
-                <div id = 'answer-button-box'></div>      
+                <div id = 'answer-button-box' class = 'questions'></div>      
             </div>
 
 <!-- Page that Presents Final Score and Prompts for user Initials -->
@@ -35,8 +38,7 @@
             </div>
 <!-- Final Page that list the High Scores -->
             <div id="high-scores" class="hide">
-              <h2>High Scores</h2>
-                <h3 class ='titleinfo'>Initials - Scores</h3>
+              <h2>High Scores</h2>             
                   <table>
                     <section>
                       <p id='output'></p>
