@@ -186,7 +186,7 @@ var initialsAndScores = "";
 for (var i = 0; i < savedScores.length; i++) {
   var initials = savedScores[i].initials;
   var score = savedScores[i].score;
-  initialsAndScores += initials + " - " + score + " ";
+  initialsAndScores += initials + " - " + score + "<br>";
 }
 
 output.innerHTML = initialsAndScores;

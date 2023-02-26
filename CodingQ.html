@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="assets/style.css">
   </head> 
-
+<!-- Starting Page with Title and Description -->
   <body class="titleandquestions">
       <div id ='page'>
         <h1> Coding Quiz Challenge</h1>
@@ -18,7 +18,7 @@
       </div>
   
         <button id="start-btn">Start Quiz!</button>
-
+<!-- First Page with Questions -->
             <div id="quiz-box" class="hide">
                 <h2 id = 'timer' class="timer"></h2>  
                 <div id = 'question-box'></div>
@@ -26,7 +26,7 @@
                  
             </div>
 
-
+<!-- Page that Presents Final Score and Prompts for user Initials -->
             <div id="final-score" class="hide">
               <p>Your final score is: <span id="score"></span></p>
               <form id="initials-form">
@@ -35,25 +35,20 @@
                 <button type="submit">Submit</button>
               </form>
             </div>
-
+<!-- Final Page that list the High Scores -->
             <div id="high-scores" class="hide">
               <h2>High Scores</h2>
+              <h3 class ='titleinfo'>Initials - Scores</h3>
               <table>
-                <thead>
-                  <tr>
-                    <th>Initials</th>
-                    <th>Score</th>
+                <section>
                       <p id='output'></p>
-                  </tr>
-                </thead>
+                </section>
                 <tbody id="high-scores-table"></tbody>
               </table>
               <button id ='goback'>Go Back</button>
               <button id="clear-scores-btn">Clear High Scores</button>
             </div>
-
-
-
+<!-- Link to Java Script File -->
     <script src="assets/script.js"></script>
   </body>
 </html>
