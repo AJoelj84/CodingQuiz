@@ -1,10 +1,10 @@
+// Variables for Start Page, Questions Section, Final and High Scores
 var startButton = document.getElementById('start-btn');
 var questionBox = document.getElementById('question-box');
 var pageStart = document.getElementById('page');
 var answerButtonBox = document.getElementById('answer-button-box');
 var quizBox = document.getElementById('quiz-box');
 var finalScoreElement = document.getElementById('final-score');
-// Working Section to integrate High Scores
 var backBtn = document.getElementById('goback');
 var highScores = document.getElementById('high-scores');
 var highScoresTable = document.getElementById('high-scores-table');
@@ -12,14 +12,13 @@ var highScoresTableBody = highScoresTable.getElementsByTagName('tbody')[0];
 var scores = JSON.parse(localStorage.getItem('scores')) || [];
 var initialsForm = document.getElementById('initials-form');
 initialsForm.addEventListener('submit', handleFormSubmit);
-// Below is previously working code
 var currentQuestionIndex = 0;
 var score = 0;
 var timeLeft = 60;
 var answerResult = document.createElement('p');
 var timerInterval;
 
-
+// Variable to Create Questions within the page
 var questions = [
     {question: 'Commonly used data types DO NOT Include:', 
      answers: [        
@@ -61,6 +60,8 @@ var questions = [
      ]
     }];
 
+// Start Button and Starting Functions to control Quiz
+
   startButton.addEventListener('click', startQuiz);
   
   function startQuiz() {
@@ -70,10 +71,22 @@ var questions = [
     currentQuestionIndex = 0;
     score = 0;
     timeLeft = 60;
-    setNextQuestion();
     showTimer();
+    setNextQuestion();
+    
   }
-  
+
+  function showTimer() {
+    timerInterval = setInterval(function() {
+      timeLeft--;
+      document.getElementById('timer').textContent = 'Time left: ' + timeLeft;
+      if (timeLeft <= 0) {
+        clearInterval(timerInterval);
+        setNextQuestion();
+      }
+    }, 1000);
+  }
+// Functions to move to the Next Question and display Correct or Incorrect
   function setNextQuestion() {
     if (currentQuestionIndex === questions.length) {
       clearInterval(timerInterval);
@@ -87,6 +100,7 @@ var questions = [
     showQuestion(questions[currentQuestionIndex]);
     quizBox.appendChild(answerResult);
   }
+
 
   function showQuestion(question) {
     questionBox.innerText = question.question;
@@ -148,17 +162,8 @@ var questions = [
     element.classList.remove('incorrect');
   }
   
-  function showTimer() {
-  timerInterval = setInterval(function() {
-    timeLeft--;
-    document.getElementById('timer').textContent = 'Time left: ' + timeLeft;
-    if (timeLeft <= 0) {
-      clearInterval(timerInterval);
-      setNextQuestion();
-    }
-  }, 1000);
-}
-// High Scores Section Below
+  
+// Function Section to Present Final Score and Prompt User for Initials
 function handleFormSubmit(event) {
   finalScoreElement.classList.add('hide');
   highScores.classList.remove('hide');
@@ -172,7 +177,7 @@ function handleFormSubmit(event) {
     localStorage.setItem('scores', JSON.stringify(scores));
   }
 }
-
+// High Scores Section with Back Button and Clear Scores and Score Display
 backBtn.addEventListener('click',function(){
   location.reload();
 });

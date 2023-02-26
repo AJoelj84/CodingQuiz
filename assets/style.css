@@ -1,9 +1,10 @@
+/* Google Font Used in Body */
 body{
     font-family: 'Babylonica', cursive;
     font-family: 'Prompt', sans-serif;
 }
 
-
+/* Styling for Start, Question, Go Back, and Clear High Score Buttons */
 button{
     padding: 10px;
     margin: 20px;
@@ -14,17 +15,17 @@ button{
     border-radius: 20px;
     
 }
-
+/* Functionality CSS for hiding already used sections and various Styling */
 .hide{
     display: none;
 }
 
 .titleandquestions{
-    font-size: 36px;
+    font-size: 28px;
     text-align: center;
 }
 .titleinfo{
-    font-size: 28px;
+    font-size: 24px;
     text-align: center;
 }
 .timer{
