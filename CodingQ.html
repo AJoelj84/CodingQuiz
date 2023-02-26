@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title></title>
+    <title>Coding Quiz</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="assets/style.css">
+        <link rel="stylesheet" href="assets/style.css">
   </head> 
 <!-- Starting Page with Title and Description -->
   <body class="titleandquestions">
@@ -14,37 +14,35 @@
         <p class="titleinfo"> Answer the Five code-related questions within the time limit.<br>
             Incorrect Answers will count against your score and time by 10 Seconds!
         </p>
-        
       </div>
   
-        <button id="start-btn">Start Quiz!</button>
+      <button id="start-btn">Start Quiz!</button>
 <!-- First Page with Questions -->
             <div id="quiz-box" class="hide">
                 <h2 id = 'timer' class="timer"></h2>  
                 <div id = 'question-box'></div>
-                <div id = 'answer-button-box'></div>
-                 
+                <div id = 'answer-button-box'></div>      
             </div>
 
 <!-- Page that Presents Final Score and Prompts for user Initials -->
             <div id="final-score" class="hide">
               <p>Your final score is: <span id="score"></span></p>
-              <form id="initials-form">
-                <label for="initials">Enter your initials:</label>
-                <input type="text" id="initials" name="initials">
+                  <form id="initials-form">
+                      <label for="initials">Enter your initials:</label>
+                      <input type="text" id="initials" name="initials">
                 <button type="submit">Submit</button>
-              </form>
+                  </form>
             </div>
 <!-- Final Page that list the High Scores -->
             <div id="high-scores" class="hide">
               <h2>High Scores</h2>
-              <h3 class ='titleinfo'>Initials - Scores</h3>
-              <table>
-                <section>
+                <h3 class ='titleinfo'>Initials - Scores</h3>
+                  <table>
+                    <section>
                       <p id='output'></p>
-                </section>
-                <tbody id="high-scores-table"></tbody>
-              </table>
+                    </section>
+                    <tbody id="high-scores-table"></tbody>
+                  </table>
               <button id ='goback'>Go Back</button>
               <button id="clear-scores-btn">Clear High Scores</button>
             </div>
